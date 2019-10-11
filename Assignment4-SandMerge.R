@@ -152,5 +152,5 @@ S1=tapply(f$parcel.length.m, list(f$area_fac), FUN = fivenum)
 S1
 
 S2=tapply(f$parcel.length.m, list(f$depth_fac), FUN = fivenum)
-S2 
+S2
 
