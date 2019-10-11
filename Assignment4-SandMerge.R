@@ -7,7 +7,7 @@ f=fish;rm(fish)
 #Using the tapply function, find the mean of 'parcel.density.m3' 
 #for each transect and assign the outcome to an object
 
-M<-tapply(f$parcel.density.m3,f$transect.id, mean)
+M<-tapply(X=f$parcel.density.m3,INDEX=f$transect.id, FUN=mean)
 M
 
 #Convert the object to a data frame
@@ -23,15 +23,17 @@ df.M
 #Assign the row names of the data frame to be the values 
 #in a new field "transect"
 
+
 transect=rownames(df.M)
 rownames(df.M)=NULL
+
 M1.df=cbind(transect,df.M)
 M1.df
 
 #Repeat the above steps, but this time using the tapply function
 #to find the standard deviation of 'parcel.density.m3'
 
-J<-tapply(f$parcel.density.m3,f$transect.id, sd)
+J<-tapply(X=f$parcel.density.m3,INDEX=f$transect.id, FUN=sd)
 J
 
 df.J<- as.data.frame(J)
@@ -53,7 +55,7 @@ P1.df
 
 #Repeat the above steps, but this time using the tapply function to find the count of observations for each transect for 'parcel.density.m3''
 
-C<-tapply(f$parcel.density.m3,f$transect.id, sum)
+C<-tapply(X=f$parcel.density.m3,INDEX=f$transect.id, FUN=sum)
 C
 
 df.C<- as.data.frame(C)
@@ -94,6 +96,7 @@ df.MP
 names(df.MP)[names(df.MP) == "parcel.density.m3"] <- "mean density"  
 df.MP
 
+
 #Assign the row names of the data frame to be the values in a 
 #new field "transect"
 
@@ -127,10 +130,6 @@ Q1.df
 CP<-f %>% group_by(transect.id) %>% summarize(parcel.density.m3 = sum(parcel.density.m3, na.rm = TRUE))
 CP
 
-#Another way to summarize
-AP=aggregate(x=f$parcel.density.m3, by = list(f$transect.id), FUN = sum)
-AP
-
 df.CP<-as.data.frame(CP)
 df.CP
 
@@ -154,3 +153,4 @@ S1
 
 S2=tapply(f$parcel.length.m, list(f$depth_fac), FUN = fivenum)
 S2
+
