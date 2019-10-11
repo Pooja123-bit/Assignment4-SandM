@@ -153,4 +153,4 @@ S1
 
 S2=tapply(f$parcel.length.m, list(f$depth_fac), FUN = fivenum)
 S2
-
+ 
