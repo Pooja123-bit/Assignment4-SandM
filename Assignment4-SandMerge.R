@@ -148,9 +148,16 @@ Q2.df
 #Select any 2 fields (e.g. area, depth, year, transect) in the 
 #fish_data.Rdata to group by
 
-S1=tapply(f$parcel.length.m, list(f$area_fac), FUN = fivenum)
-S1
+f%>%group_by(area_fac,depth_fac)%>%summarise(parcel.lengthmin=min(parcel.length.m),
+                                             parcel.length.mquantile1=quantile(parcel.length.m,probs = c(0.05)),
+                                             parcel.length.mmid=median(parcel.length.m),
+                                             parcel.length.maverage=mean(parcel.length.m),
+                                             parcel.length.mquantile2=quantile(parcel.length.m,probs = c(0.95)),
+                                             parcel.length.mmax=max(parcel.length.m))
 
-S2=tapply(f$parcel.length.m, list(f$depth_fac), FUN = fivenum)
-S2
- 
+f%>%group_by(area_fac,depth_fac)%>%summarise(min(parcel.length.m),
+                                             quantile(parcel.length.m,probs = c(0.05)),
+                                             median(parcel.length.m),
+                                             mean(parcel.length.m),
+                                             quantile(parcel.length.m,probs = c(0.95)),
+                                             max(parcel.length.m))
